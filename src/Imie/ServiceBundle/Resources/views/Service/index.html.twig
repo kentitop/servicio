@@ -1,3 +1,13 @@
-Hello !
+{% extends "ImieServiceBundle::layout.html.twig" %}
 
-{{ mon_service.titre }}
+{% block title %} coucouuu {% endblock %}
+
+
+
+{% block body %}
+<ul>
+  {% for service in mes_services %}
+    <li>{{ service.titre }}</li>
+  {% endfor %}
+</ul>
+{% endblock %}

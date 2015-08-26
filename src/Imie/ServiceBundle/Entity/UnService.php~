@@ -3,6 +3,7 @@
 namespace Imie\ServiceBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * UnService
@@ -31,21 +32,21 @@ class UnService
     /**
      * @var string
      *
-     * @ORM\Column(name="description", type="string", length=255)
+     * @ORM\Column(name="description", type="string", length=255, nullable=true)
      */
     private $description;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="email", type="string", length=255)
+     * @ORM\Column(name="email", type="string", length=255, nullable=true)
      */
     private $email;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="preferences", type="string", length=255)
+     * @ORM\Column(name="preferences", type="string", length=255, nullable=true)
      */
     private $preferences;
 
@@ -55,6 +56,21 @@ class UnService
      * @ORM\Column(name="createdAt", type="datetime")
      */
     private $createdAt;
+
+    /**
+    *
+    * @ORM\ManyToOne(targetEntity="Imie\ServiceBundle\Entity\Categorie", inversedBy="services")
+    *
+    */
+    private $categorie;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+
+    }
 
     /**
      * Get id
@@ -156,5 +172,52 @@ class UnService
     public function getPreferences()
     {
         return $this->preferences;
+    }
+
+    /**
+     * Set createdAt
+     *
+     * @param \DateTime $createdAt
+     * @return UnService
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    /**
+     * Get createdAt
+     *
+     * @return \DateTime
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+
+    /**
+     * Set categorie
+     *
+     * @param \Imie\ServiceBundle\Entity\Categorie $categorie
+     * @return UnService
+     */
+    public function setCategorie(\Imie\ServiceBundle\Entity\Categorie $categorie = null)
+    {
+        $this->categorie = $categorie;
+
+        return $this;
+    }
+
+    /**
+     * Get categorie
+     *
+     * @return \Imie\ServiceBundle\Entity\Categorie
+     */
+    public function getCategorie()
+    {
+        return $this->categorie;
     }
 }
