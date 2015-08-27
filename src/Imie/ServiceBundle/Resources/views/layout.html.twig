@@ -4,22 +4,23 @@
   <meta charset="UTF-8">
   <title>{% block title %} test {% endblock %}</title>
   {% block stylesheets %}
-    <link href="{{ asset('bundles/main/css/bootstrap.css') }}" rel="stylesheet" />
+    <link href="{{ asset('bundles/imieservice/css/bootstrap.css') }}" rel="stylesheet" />
+    <link href="{{ asset('bundles/imieservice/css/style.css') }}" rel="stylesheet" />
   {% endblock %}
 
 
 </head>
 <body>
+  {{ include('ImieServiceBundle::header.html.twig') }}
+  <div class="container">
 
-  <h1>Coucou</h1>
+    {% block body %}  {% endblock %}
 
-
-
-  {% block body %}  {% endblock %}
+   </div>
 
   {% block javascripts %}
     <script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
-    <script src="{{ asset('bundles/main/js/bootstrap.js') }}"></script>
+    <script src="{{ asset('bundles/imieservice/js/bootstrap.js') }}"></script>
   {% endblock %}
 
 </body>

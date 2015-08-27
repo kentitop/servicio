@@ -19,6 +19,8 @@ class ServiceController extends Controller
       $em = $this->getDoctrine()->getManager();
       $repoServices = $em->getRepository('ImieServiceBundle:UnService');
       $servicios = $repoServices->findAll();
+
+      //dump($servicios);
         return array(
           'mes_services' => $servicios
         );
