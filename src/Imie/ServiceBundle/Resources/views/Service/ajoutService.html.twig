@@ -10,11 +10,13 @@
 {{ form(formulaire_service) }}
 {% endblock %}
 
+
+
 {% block javascripts %}
 <script src="{{ asset('bundles/imieservice/js/jquery-ui.js') }}"></script>
 <script type="text/javascript">
 $(function() {
-  $( "#form_createdAt" ).datepicker();
+  $( "#imie_servicebundle_unservice_createdAt" ).datepicker();
 });
 </script>
 {% endblock %}

@@ -8,6 +8,9 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Imie\ServiceBundle\Entity\UnService;
 use Imie\ServiceBundle\Entity\Categorie;
 
+use Imie\ServiceBundle\Form\UnServiceType;
+use Imie\ServiceBundle\Form\CategorieType;
+
 use Symfony\Component\HttpFoundation\Request;
 
 class ServiceController extends Controller
@@ -59,14 +62,11 @@ class ServiceController extends Controller
     {
 
         $servicio = new UnService();
-        $formBuilder = $this->get('form.factory')->createBuilder('form', $servicio);
-
-        $formBuilder
-          ->add('titre', 'text')
-          ->add('createdAt', 'datetime', array('widget' => 'single_text'))
-          ->add('save', 'submit');
-
-        $form = $formBuilder->getForm();
+        $form = $this->createForm(
+        	new UnServiceType(),
+        	$servicio,
+        	array()
+         );
         $form->handleRequest($request);
 
         if($form->isValid()) {

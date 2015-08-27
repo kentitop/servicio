@@ -45,6 +45,14 @@ class Categorie
      */
     private $services;
 
+    /**
+    *  Méthode toString
+    *
+    */
+    public function __toString() {
+      return $this->nom;
+    }
+
 
     /**
      * Get id
