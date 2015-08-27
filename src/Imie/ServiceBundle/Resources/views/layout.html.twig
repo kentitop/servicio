@@ -11,7 +11,7 @@
 
 </head>
 <body>
-  {{ include('ImieServiceBundle::header.html.twig') }}
+  {% include('ImieServiceBundle::header.html.twig' with {"current" : block('menu')}) %}
   <div class="container">
 
     {% block body %}  {% endblock %}
