@@ -1,6 +1,11 @@
 {% extends "ImieServiceBundle::layout.html.twig" %}
 
 {% block title %} Ajouter une catégorie {% endblock %}
+{% block menu %}addCategorie{% endblock %}
+{% block body %}
 
+<h1>Ajouter une catégorie</h1>
 
-{% block body %} L'admin ajoute les catégories ici {% endblock %}
+{{ form(formulaire_categorie) }}
+
+{% endblock %}

@@ -1,6 +1,14 @@
 {% extends "ImieServiceBundle::layout.html.twig" %}
 
 {% block title %} Catégories {% endblock %}
+{% block menu %}categorie{% endblock %}
 
+{% block body %}
+Toutes les catégories créees par l'admin
+<ul>
+  {% for categorie in mes_categories %}
+    <li>{{ categorie.nom }}</li>
+  {% endfor %}
+</ul>
 
-{% block body %} Toutes les catégories créees par l'admin {% endblock %}
+{% endblock %}

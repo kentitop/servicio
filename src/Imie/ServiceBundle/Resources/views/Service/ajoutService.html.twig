@@ -1,6 +1,20 @@
 {% extends "ImieServiceBundle::layout.html.twig" %}
 
+{% block menu %}addService{% endblock %}
 {% block title %} Ajouter un Service {% endblock %}
 
 
-{% block body %} Ajouter un service {% endblock %}
+{% block body %}
+
+<h1>Ajouter un service</h1>
+{{ form(formulaire_service) }}
+{% endblock %}
+
+{% block javascripts %}
+<script src="{{ asset('bundles/imieservice/js/jquery-ui.js') }}"></script>
+<script type="text/javascript">
+$(function() {
+  $( "#form_createdAt" ).datepicker();
+});
+</script>
+{% endblock %}

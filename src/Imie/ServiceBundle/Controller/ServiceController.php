@@ -8,10 +8,12 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Imie\ServiceBundle\Entity\UnService;
 use Imie\ServiceBundle\Entity\Categorie;
 
+use Symfony\Component\HttpFoundation\Request;
+
 class ServiceController extends Controller
 {
     /**
-     * @Route("/")
+     * @Route("/", name="homepage")
      * @Template()
      */
     public function indexAction()
@@ -27,7 +29,7 @@ class ServiceController extends Controller
     }
 
     /**
-     * @Route("/service")
+     * @Route("/service", name="service")
      * @Template()
      */
     public function serviceAction()
@@ -50,16 +52,38 @@ class ServiceController extends Controller
     }
 
     /**
-     * @Route("/service/ajout")
+     * @Route("/service/ajout", name="addService")
      * @Template()
      */
-    public function ajoutServiceAction()
+    public function ajoutServiceAction(Request $request)
     {
-        return array();
+
+        $servicio = new UnService();
+        $formBuilder = $this->get('form.factory')->createBuilder('form', $servicio);
+
+        $formBuilder
+          ->add('titre', 'text')
+          ->add('createdAt', 'datetime', array('widget' => 'single_text'))
+          ->add('save', 'submit');
+
+        $form = $formBuilder->getForm();
+        $form->handleRequest($request);
+
+        if($form->isValid()) {
+          $em = $this->getDoctrine()->getManager();
+          $em->persist($servicio);
+          $em->flush();
+
+          return $this->redirect($this->generateUrl('homepage'));
+        }
+
+        return array(
+          'formulaire_service'=>$form->createView()
+        );
     }
 
     /**
-     * @Route("/service/reservation")
+     * @Route("/service/reservation", name="reservationService")
      * @Template()
      */
     public function reservationServiceAction()
