@@ -1,0 +1,46 @@
+{% extends "ImieMainBundle::layout.html.twig" %}
+
+{% block body -%}
+    <h1>Service</h1>
+    <a class="btn btn-default" href="{{ path('service') }}">
+        Back to the list
+    </a>
+
+    <table class="record_properties">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ entity.id }}</td>
+            </tr>
+            <tr>
+                <th>Titre</th>
+                <td>{{ entity.titre }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ entity.description }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ entity.email }}</td>
+            </tr>
+            <tr>
+                <th>Preferences</th>
+                <td>{{ entity.preferences }}</td>
+            </tr>
+            <tr>
+                <th>Createdat</th>
+                <td>{{ entity.createdAt|date('Y-m-d H:i:s') }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+        <ul class="record_actions">
+    <li>
+        <a class="btn btn-warning" href="{{ path('service_edit', { 'id': entity.id }) }}">
+            Edit
+        </a>
+    </li>
+    <li>{{ form_widget(delete_form.submit, { 'attr': {'class' : 'btn btn-danger'} }) }}</li>
+</ul>
+{% endblock %}

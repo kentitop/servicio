@@ -8,8 +8,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Imie\ServiceBundle\Entity\UnService;
 use Imie\ServiceBundle\Entity\Categorie;
 
-use Imie\ServiceBundle\Form\UnServiceType;
-use Imie\ServiceBundle\Form\CategorieType;
+//use Imie\ServiceBundle\Form\UnServiceType;
+//use Imie\ServiceBundle\Form\CategorieType;
 
 use Symfony\Component\HttpFoundation\Request;
 

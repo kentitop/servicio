@@ -1,4 +1,9 @@
-imie_service:
-    resource: "@ImieServiceBundle/Controller/"
+imie_main:
+    resource: "@ImieMainBundle/Controller/"
     type:     annotation
     prefix:   /
+
+#imie_service:
+#    resource: "@ImieServiceBundle/Controller/"
+#    type:     annotation
+#    prefix:   /
