@@ -1,0 +1,9 @@
+services:
+  imiemain.getMySaint:
+    class: 'Imie\MainBundle\Api\mySaint'
+    arguments: ['@service_container']
+
+parameters:
+  fete_du_jour_key: 'VOTRECLE'
+  fete_du_jour_url: 'http://fetedujour.fr/api/v2/'
+  fete_du_jour_format: '/json-normal-10-5'

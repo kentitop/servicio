@@ -1,6 +1,6 @@
 {% extends "ImieMainBundle::layout.html.twig" %}
 
-{% block body -%}
+{% block body %}
     <h1>Service</h1>
     <a class="btn btn-default" href="{{ path('service') }}">
         Back to the list
@@ -41,6 +41,6 @@
             Edit
         </a>
     </li>
-    <li>{{ form_widget(delete_form.submit, { 'attr': {'class' : 'btn btn-danger'} }) }}</li>
+    <li>{{ form(delete_form) }}</li>
 </ul>
 {% endblock %}

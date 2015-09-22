@@ -3,17 +3,19 @@
   <link href="{{ asset('bundles/imiemain/css/jquery.datetimepicker.css') }}" rel="stylesheet" />
 {% endblock %}
 
-{% block body -%}
+{% block menu  %}addService{% endblock %}
+
+{% block body %}
     <div class="">
-      <h1>Service creation</h1>
+      <h1>Créer un service</h1>
       <a class="btn btn-default" href="{{ path('service') }}">
-          Back to the list
+          Retour à la liste
       </a>
     </div>
 
     {#{ form(form) }#}
 
-    {{ form_start(form) }}
+    {{ form_start(form, { attr:{'id' : 'formCreateService'}}) }}
     {{ form_errors(form) }}
 
     <div class="form-group">
@@ -66,6 +68,22 @@
 <script type="text/javascript">
 $(function() {
   $( "#imie_mainbundle_service_createdAt" ).datetimepicker();
+
+  var formCreateService = $('form#formCreateService');
+  var formUrl = formCreateService.attr('action');
+  console.log(formCreateService);
+  formCreateService.on('submit', function(){
+  $.ajax({
+    url: formUrl,
+    type: "POST",
+    data: formCreateService.serialize(),
+    success: function(data){
+      //console.log(data);
+      $('h1').html(data.welldone);
+    }
+  });
+  return false;
+  });
 });
 </script>
 {% endblock %}

@@ -9,6 +9,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Imie\MainBundle\Entity\Service;
 use Imie\MainBundle\Form\ServiceType;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Service controller.
@@ -27,12 +28,15 @@ class ServiceController extends Controller
      */
     public function indexAction()
     {
+        $serviceSaintDuJour = $this->get('imiemain.getMySaint');
+        $saint = $serviceSaintDuJour->getSaintOfTheDay();
+
         $em = $this->getDoctrine()->getManager();
 
         $entities = $em->getRepository('ImieMainBundle:Service')->findAll();
 
         return array(
-            'entities' => $entities,
+            'entities' => $entities, 'saint' => $saint
         );
     }
     /**
@@ -53,7 +57,11 @@ class ServiceController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('service_show', array('id' => $entity->getId())));
+            //return $this->redirect($this->generateUrl('service_show', array('id' => $entity->getId())));
+            $returnArray = array("respondeCode" => 200, "welldone" => "bravo man");
+            $return = json_encode($returnArray);
+
+            return new Response($return, 200, array('Content-type' => 'application/json'));
         }
 
         return array(
@@ -240,7 +248,7 @@ class ServiceController extends Controller
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('service_delete', array('id' => $id)))
             ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Delete'))
+            ->add('submit', 'submit', array('label' => 'Delete', 'attr'=> array('class'=>'btn btn-danger')))
             ->getForm()
         ;
     }
