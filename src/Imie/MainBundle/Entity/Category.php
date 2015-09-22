@@ -12,6 +12,16 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Category
 {
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->services = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    
     /**
      * @var integer
      *
@@ -102,13 +112,7 @@ class Category
     {
         return $this->description;
     }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->services = new \Doctrine\Common\Collections\ArrayCollection();
-    }
+
 
     /**
      * Add services

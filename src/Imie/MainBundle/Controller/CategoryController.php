@@ -2,18 +2,23 @@
 
 namespace Imie\MainBundle\Controller;
 
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\Request;
+
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+
 use Imie\MainBundle\Entity\Category;
 use Imie\MainBundle\Form\CategoryType;
+
 
 /**
  * Category controller.
  *
- * @Route("/admin")
+ * @Route("/categories")
  */
 class CategoryController extends Controller
 {
@@ -21,7 +26,7 @@ class CategoryController extends Controller
     /**
      * Lists all Category entities.
      *
-     * @Route("/categories", name="category")
+     * @Route("/", name="category")
      * @Method("GET")
      * @Template()
      */
@@ -84,9 +89,10 @@ class CategoryController extends Controller
     /**
      * Displays a form to create a new Category entity.
      *
-     * @Route("/categories/new", name="category_new")
+     * @Route("/new", name="category_new")
      * @Method("GET")
      * @Template()
+     * @Security("has_role('ROLE_USER')")
      */
     public function newAction()
     {
@@ -102,7 +108,7 @@ class CategoryController extends Controller
     /**
      * Finds and displays a Category entity.
      *
-     * @Route("/{id}", name="category_show")
+     * @Route("/{id}", name="category_show", requirements={"id"="\d+"})
      * @Method("GET")
      * @Template()
      */
@@ -127,7 +133,7 @@ class CategoryController extends Controller
     /**
      * Displays a form to edit an existing Category entity.
      *
-     * @Route("/{id}/edit", name="category_edit")
+     * @Route("/{id}/edit", name="category_edit", requirements={"id"="\d+"})
      * @Method("GET")
      * @Template()
      */
@@ -172,12 +178,15 @@ class CategoryController extends Controller
     /**
      * Edits an existing Category entity.
      *
-     * @Route("/{id}", name="category_update")
+     * @Route("/{id}", name="category_update", requirements={"id"="\d+"})
      * @Method("PUT")
      * @Template("ImieMainBundle:Category:edit.html.twig")
      */
     public function updateAction(Request $request, $id)
     {
+        //if($this->get('security.context')->isGranted('ROLE_ALLOWED_TO_MODIFY') === false) {
+        //  throw new AccessDeniedException();
+        //}
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('ImieMainBundle:Category')->find($id);
@@ -205,7 +214,7 @@ class CategoryController extends Controller
     /**
      * Deletes a Category entity.
      *
-     * @Route("/{id}", name="category_delete")
+     * @Route("/{id}", name="category_delete", requirements={"id"="\d+"})
      * @Method("DELETE")
      */
     public function deleteAction(Request $request, $id)

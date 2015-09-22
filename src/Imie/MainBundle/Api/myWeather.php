@@ -7,23 +7,21 @@ use Symfony\Component\DependencyInjection\ContainerInterface as Container;
 /**
  *
  */
-class mySaint {
+class myWeather {
 
   private $url;
   private $key;
-  private $format;
-  private $container;
+  private $containerWeather;
 
-  public function __construct(Container $container) {
-    $this->container = $container;
-    $this->url = $this->container->getParameter('fete_du_jour_url');
-    $this->key = $this->container->getParameter('fete_du_jour_key');
-    $this->format = $this->container->getParameter('fete_du_jour_format');
+  public function __construct(Container $containerWeather) {
+    $this->container = $containerWeather;
+    $this->url = $this->container->getParameter('weather_url');
+    $this->key = $this->container->getParameter('weather_key');
 
   }
-  function getSaintOfTheDay() {
+  function getWeatherOfTheDay() {
     // construction de l'url
-    $url = $this->url.$this->key.$this->format;
+    $url = $this->url.$this->key;
 
     //$json_reponse = file_get_contents($url);
 
@@ -36,7 +34,8 @@ class mySaint {
     // décodage de la réponse json -> tableau PHP
     $reponse = json_decode($json_reponse, true);
     dump($reponse);
-    return $reponse['name'];
+    dump($reponse['main']['temp']);
+    return $reponse['weather'][0];
   }
 
 }

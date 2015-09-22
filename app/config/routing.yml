@@ -3,6 +3,12 @@ imie_main:
     type:     annotation
     prefix:   /
 
+logout:
+    path: /logout
+
+fos_user:
+    resource: "@FOSUserBundle/Resources/config/routing/all.xml"
+
 #imie_service:
 #    resource: "@ImieServiceBundle/Controller/"
 #    type:     annotation

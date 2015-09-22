@@ -3,7 +3,14 @@ services:
     class: 'Imie\MainBundle\Api\mySaint'
     arguments: ['@service_container']
 
+  imiemain.getMyWeather:
+    class: 'Imie\MainBundle\Api\myWeather'
+    arguments: ['@service_container']
+
 parameters:
   fete_du_jour_key: 'VOTRECLE'
   fete_du_jour_url: 'http://fetedujour.fr/api/v2/'
   fete_du_jour_format: '/json-normal-10-5'
+
+  weather_key: '2172797'
+  weather_url: 'http://api.openweathermap.org/data/2.5/weather?id='

@@ -31,12 +31,15 @@ class ServiceController extends Controller
         $serviceSaintDuJour = $this->get('imiemain.getMySaint');
         $saint = $serviceSaintDuJour->getSaintOfTheDay();
 
+        $serviceWheater = $this->get('imiemain.getMyWeather');
+        $meteo = $serviceWheater->getWeatherOfTheDay();
+
         $em = $this->getDoctrine()->getManager();
 
         $entities = $em->getRepository('ImieMainBundle:Service')->findAll();
 
         return array(
-            'entities' => $entities, 'saint' => $saint
+            'entities' => $entities, 'saint' => $saint, 'meteo' => $meteo
         );
     }
     /**
@@ -110,7 +113,7 @@ class ServiceController extends Controller
     /**
      * Finds and displays a Service entity.
      *
-     * @Route("/{id}", name="service_show")
+     * @Route("/{id}", name="service_show", requirements={"id"="\d+"})
      * @Method("GET")
      * @Template()
      */
