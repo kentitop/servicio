@@ -71,11 +71,7 @@
         {{ form_widget(form.image.name, { 'attr': {'class': 'form-control'} }) }}
     </div>
 
-    <div class="form-group">
-        {{ form_label(form.image.path) }}
-        {{ form_errors(form.image.path) }}
-        {{ form_widget(form.image.path, { 'attr': {'class': 'form-control'} }) }}
-    </div>
+    {% do form.image.path.setRendered %}
 
         {{ form_widget(form.submit, { 'attr': {'class': 'btn btn-info'} }) }}
 

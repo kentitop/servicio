@@ -29,6 +29,7 @@ class CategoryController extends Controller
      * @Route("/", name="category")
      * @Method("GET")
      * @Template()
+     * @Security("has_role('ROLE_USER')")
      */
     public function indexAction()
     {
