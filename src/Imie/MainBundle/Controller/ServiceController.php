@@ -8,6 +8,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Imie\MainBundle\Entity\Service;
+use Imie\MainBundle\Entity\Image;
 use Imie\MainBundle\Form\ServiceType;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -60,11 +61,11 @@ class ServiceController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            //return $this->redirect($this->generateUrl('service_show', array('id' => $entity->getId())));
-            $returnArray = array("respondeCode" => 200, "welldone" => "bravo man");
-            $return = json_encode($returnArray);
+            return $this->redirect($this->generateUrl('service_show', array('id' => $entity->getId())));
+            //$returnArray = array("respondeCode" => 200, "welldone" => "bravo man");
+            //$return = json_encode($returnArray);
 
-            return new Response($return, 200, array('Content-type' => 'application/json'));
+            //return new Response($return, 200, array('Content-type' => 'application/json'));
         }
 
         return array(
@@ -251,8 +252,38 @@ class ServiceController extends Controller
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('service_delete', array('id' => $id)))
             ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Delete', 'attr'=> array('class'=>'btn btn-danger')))
+            ->add('submit', 'submit', array('label' => 'Supprimer', 'attr'=> array('class'=>'btn btn-danger')))
             ->getForm()
         ;
     }
+
+    /**
+    *
+    * Fonction d'upload d'image
+    *
+    */
+    public function uploadAction(Request $request)
+    {
+    $image = new Image();
+    $form = $this->createFormBuilder($image)
+        ->add('name')
+        ->add('file')
+        ->getForm();
+
+    $form->handleRequest($request);
+
+    if ($form->isValid()) {
+        $em = $this->getDoctrine()->getManager();
+
+        $image->getImage()->upload();
+        dump($image);
+        $em->persist($image);
+        $em->flush();
+
+        return $this->redirectToRoute();
+    }
+
+    return array('form' => $form->createView());
+  }
+
 }

@@ -1,0 +1,5 @@
+Imie\MainBundle\Entity\Service:
+    properties:
+        titre:
+              - NotBlank: {message: "Veuillez saisir le titre"}
+              

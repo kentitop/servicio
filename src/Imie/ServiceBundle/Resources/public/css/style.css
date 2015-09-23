@@ -1,3 +1,25 @@
 body {
   padding-top: 70px;
 }
+#top-show {
+  margin: 1em 0;
+}
+#top-show h1 {
+  display: inline-block;
+  margin: 0;
+
+}
+.media__show img {
+  width: 100%;
+  height: 100%;
+
+}
+
+.edit-header {
+  float: right;
+  display: inline-block;
+}
+
+.edit-header .deleteBtn {
+  display: inline-block;
+}

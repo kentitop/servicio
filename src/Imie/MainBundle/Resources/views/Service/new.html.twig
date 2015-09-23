@@ -14,13 +14,16 @@
     </div>
 
     {#{ form(form) }#}
-
-    {{ form_start(form, { attr:{'id' : 'formCreateService'}}) }}
+<form action="{{ path('service') }}" method="post" {{ form_enctype(form) }}>
+    {{ form_start(form, { attr:{'id' : 'formCreateService', 'novalidate': 'novalidate'}}) }}
     {{ form_errors(form) }}
 
     <div class="form-group">
         {{ form_label(form.titre) }}
-        {{ form_errors(form.titre) }}
+        <div style="color: red">
+          {{ form_errors(form.titre) }}
+        </div>
+
         {{ form_widget(form.titre, { 'attr': {'class': 'form-control'} }) }}
     </div>
 
@@ -42,11 +45,7 @@
         {{ form_widget(form.preferences, { 'attr': {'class': 'form-control'} }) }}
     </div>
 
-    <div class="form-group">
-        {{ form_label(form.createdAt) }}
-        {{ form_errors(form.createdAt) }}
-        {{ form_widget(form.createdAt, { 'attr': {'class': 'form-control'} }) }}
-    </div>
+
 
     <div class="form-group">
         {{ form_label(form.categorie) }}
@@ -54,11 +53,36 @@
         {{ form_widget(form.categorie, { 'attr': {'class': 'form-control'} }) }}
     </div>
 
+    <div class="form-group">
+        {{ form_label(form.image.file) }}
+        {{ form_errors(form.image.file) }}
+        {{ form_widget(form.image.file, { 'attr': {'class': 'form-control'} }) }}
+    </div>
+
+    <div class="form-group">
+        {{ form_label(form.image.alt) }}
+        {{ form_errors(form.image.alt) }}
+        {{ form_widget(form.image.alt, { 'attr': {'class': 'form-control'} }) }}
+    </div>
+
+    <div class="form-group">
+        {{ form_label(form.image.name) }}
+        {{ form_errors(form.image.name) }}
+        {{ form_widget(form.image.name, { 'attr': {'class': 'form-control'} }) }}
+    </div>
+
+    <div class="form-group">
+        {{ form_label(form.image.path) }}
+        {{ form_errors(form.image.path) }}
+        {{ form_widget(form.image.path, { 'attr': {'class': 'form-control'} }) }}
+    </div>
+
         {{ form_widget(form.submit, { 'attr': {'class': 'btn btn-info'} }) }}
 
 
 
 {{ form_end(form) }}
+</form>
 
 
 {% endblock %}
@@ -68,8 +92,8 @@
 <script type="text/javascript">
 $(function() {
   $( "#imie_mainbundle_service_createdAt" ).datetimepicker();
-
-  var formCreateService = $('form#formCreateService');
+/*
+  var formCreateService = $('form#formCreateServiceDESACTIVE');
   var formUrl = formCreateService.attr('action');
   console.log(formCreateService);
   formCreateService.on('submit', function(){
@@ -83,7 +107,7 @@ $(function() {
     }
   });
   return false;
-  });
+}); */
 });
 </script>
 {% endblock %}

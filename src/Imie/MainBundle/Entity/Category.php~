@@ -12,6 +12,16 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Category
 {
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->services = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    
     /**
      * @var integer
      *
@@ -41,6 +51,10 @@ class Category
      * @ORM\OneToMany(targetEntity="Imie\MainBundle\Entity\Service", mappedBy="categorie")
      */
     private $services;
+
+    public function __toString() {
+      return $this->nom;
+    }
 
 
     /**
@@ -97,5 +111,39 @@ class Category
     public function getDescription()
     {
         return $this->description;
+    }
+
+
+    /**
+     * Add services
+     *
+     * @param \Imie\MainBundle\Entity\Service $services
+     * @return Category
+     */
+    public function addService(\Imie\MainBundle\Entity\Service $services)
+    {
+        $this->services[] = $services;
+
+        return $this;
+    }
+
+    /**
+     * Remove services
+     *
+     * @param \Imie\MainBundle\Entity\Service $services
+     */
+    public function removeService(\Imie\MainBundle\Entity\Service $services)
+    {
+        $this->services->removeElement($services);
+    }
+
+    /**
+     * Get services
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getServices()
+    {
+        return $this->services;
     }
 }

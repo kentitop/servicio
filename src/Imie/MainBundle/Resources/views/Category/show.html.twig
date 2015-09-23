@@ -1,9 +1,9 @@
 {% extends "ImieMainBundle::layout.html.twig" %}
 
 {% block body %}
-    <h1>Category</h1>
+    <h1>Catégorie</h1>
 
-    <table class="record_properties">
+    <table class="table table-hover">
         <tbody>
             <tr>
                 <th>Id</th>
@@ -20,17 +20,13 @@
         </tbody>
     </table>
 
-        <ul class="record_actions">
-    <li>
         <a class="btn btn-default" href="{{ path('category') }}">
-            Back to the list
+            Retour à la liste
         </a>
-    </li>
-    <li>
-        <a class="btn btn-warning" href="{{ path('category_edit', { 'id': entity.id }) }}">
-            Edit
+        <a class="btn btn-info" href="{{ path('category_edit', { 'id': entity.id }) }}">
+            Editer
         </a>
-    </li>
-    <li>{{ form_widget(delete_form.submit, { 'attr': {'class': 'btn btn-danger'}}) }}</li>
-</ul>
+
+{{ form_widget(delete_form.submit, { 'attr': {'class': 'btn btn-danger'}}) }}
+
 {% endblock %}

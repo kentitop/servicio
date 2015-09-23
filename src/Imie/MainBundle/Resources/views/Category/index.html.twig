@@ -2,12 +2,11 @@
 
 {% block menu %}categorie{% endblock %}
 {% block body %}
-    <h1>Category list</h1>
+    <h1>Toutes les catégories</h1>
 
     <table class="table table-hover">
         <thead>
             <tr>
-                <th>Id</th>
                 <th>Nom</th>
                 <th>Description</th>
                 <th>Actions</th>
@@ -16,18 +15,10 @@
         <tbody>
         {% for entity in entities %}
             <tr>
-                <td><a href="{{ path('category_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-                <td>{{ entity.nom }}</td>
+                <td><a href="{{ path('category_show', { 'id': entity.id }) }}">{{ entity.nom }}</a></td>
                 <td>{{ entity.description }}</td>
                 <td>
-                <ul>
-                    <li>
-                        <a href="{{ path('category_show', { 'id': entity.id }) }}">show</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('category_edit', { 'id': entity.id }) }}">edit</a>
-                    </li>
-                </ul>
+                  <a class="btn btn-info" href="{{ path('category_edit', { 'id': entity.id }) }}">Editer</a>
                 </td>
             </tr>
         {% endfor %}

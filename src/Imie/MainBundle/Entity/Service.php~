@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="Imie\MainBundle\Entity\ServiceRepository")
+ * @ORM\HasLifecycleCallbacks
  */
 class Service
 {
@@ -62,6 +63,22 @@ class Service
     *
     */
     private $categorie;
+
+    /**
+    *
+    * @ORM\OneToOne(targetEntity="Imie\MainBundle\Entity\Image", cascade={"persist"})
+    */
+    private $image;
+
+    /**
+     * Gets triggered only on insert
+
+     * @ORM\PrePersist
+     */
+    public function onPrePersist()
+    {
+        $this->createdAt = new \DateTime("now");
+    }
 
 
     /**
@@ -187,5 +204,51 @@ class Service
     public function getCreatedAt()
     {
         return $this->createdAt;
+    }
+
+    /**
+     * Set categorie
+     *
+     * @param \Imie\MainBundle\Entity\Category $categorie
+     * @return Service
+     */
+    public function setCategorie(\Imie\MainBundle\Entity\Category $categorie = null)
+    {
+        $this->categorie = $categorie;
+
+        return $this;
+    }
+
+    /**
+     * Get categorie
+     *
+     * @return \Imie\MainBundle\Entity\Category
+     */
+    public function getCategorie()
+    {
+        return $this->categorie;
+    }
+
+    /**
+     * Set image
+     *
+     * @param \Imie\MainBundle\Entity\Image $image
+     * @return Service
+     */
+    public function setImage(\Imie\MainBundle\Entity\Image $image = null)
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    /**
+     * Get image
+     *
+     * @return \Imie\MainBundle\Entity\Image
+     */
+    public function getImage()
+    {
+        return $this->image;
     }
 }
