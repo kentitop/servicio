@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class ServiceType extends AbstractType
+class ReservationType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -15,22 +15,18 @@ class ServiceType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('titre')
-            ->add('description')
-            ->add('email')
-            ->add('preferences', 'datetime', array('widget' => 'single_text'))
-            ->add('categorie')
-            ->add('image', new ImageType())
+            ->add('service')
+            ->add('user')
         ;
     }
-
+    
     /**
      * @param OptionsResolverInterface $resolver
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Imie\MainBundle\Entity\Service'
+            'data_class' => 'Imie\MainBundle\Entity\Reservation'
         ));
     }
 
@@ -39,6 +35,6 @@ class ServiceType extends AbstractType
      */
     public function getName()
     {
-        return 'imie_mainbundle_service';
+        return 'imie_mainbundle_reservation';
     }
 }

@@ -3,13 +3,18 @@
 {% block menu %}service{% endblock %}
 
 {% block body %}
+
+<section id="bg__top">
+  <h1>SERVICIO</h1>
+  <p>
+    Le monde à votre service...
+  </p>
+</section>
     <h1>Tous les services</h1>
 
-    <h2>Hello C'est la fête de {{ saint }}</h2>
 
-    <p>
-      meteo : {{ meteo.description }}
-    </p>
+
+
     <table class="table table-hover">
         <thead>
             <tr>
@@ -27,7 +32,7 @@
                 <td><a href="{{ path('service_show', { 'id': entity.id }) }}">{{ entity.titre }}</a></td>
                 <td>{{ entity.description }}</td>
                 <td>{{ entity.email }}</td>
-                <td>{{ entity.preferences }}</td>
+                <td>{{ entity.preferences|date('Y-m-d H:i:s') }}</td>
                 <td>{% if entity.createdAt %}{{ entity.createdAt|date('Y-m-d H:i:s') }}{% endif %}</td>
                 {% if is_granted('ROLE_ADMIN') %}
                 <td>

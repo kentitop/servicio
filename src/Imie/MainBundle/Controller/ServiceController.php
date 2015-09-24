@@ -9,13 +9,15 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Imie\MainBundle\Entity\Service;
 use Imie\MainBundle\Entity\Image;
+use Imie\MainBundle\Entity\Reservation;
 use Imie\MainBundle\Form\ServiceType;
+use Imie\MainBundle\Form\ServiceUpdateType;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Service controller.
  *
- * @Route("/service")
+ * @Route("/")
  */
 class ServiceController extends Controller
 {
@@ -111,30 +113,6 @@ class ServiceController extends Controller
         );
     }
 
-    /**
-     * Finds and displays a Service entity.
-     *
-     * @Route("/{id}", name="service_show", requirements={"id"="\d+"})
-     * @Method("GET")
-     * @Template()
-     */
-    public function showAction($id)
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        $entity = $em->getRepository('ImieMainBundle:Service')->find($id);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Service entity.');
-        }
-
-        $deleteForm = $this->createDeleteForm($id);
-
-        return array(
-            'entity'      => $entity,
-            'delete_form' => $deleteForm->createView(),
-        );
-    }
 
     /**
      * Displays a form to edit an existing Service entity.
@@ -284,5 +262,84 @@ class ServiceController extends Controller
 
     return array('form' => $form->createView());
   }
+
+  /**
+     * Finds and displays a Service entity.
+     *
+     * @Route("/{id}", name="service_show", requirements={"id"="\d+"})
+     * @Method("GET")
+     * @Template()
+     */
+    public function showAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $entity = $em->getRepository('ImieMainBundle:Service')->find($id);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Service entity.');
+        }
+
+        $deleteForm = $this->createDeleteForm($id);
+
+        $form = $this->createForm(new ServiceUpdateType(), $entity, array(
+            'action' => $this->generateUrl('resa-add', array('id'=> $id )),
+            'method' => 'POST',
+        ));
+
+        $form->add('submit', 'submit', array('label' => 'Create'));
+        // if (isset($_POST) && $_POST['reservation'] == false) {
+        //   $reservation =$_POST['reservation'];
+        //   $idservice =$_POST['idservice'];
+        //   $iduser =$_POST['iduser'];
+        //
+        // }
+        return array(
+            'entity'      => $entity,
+            'delete_form' => $deleteForm->createView(),
+            'update_form' => $form->createView(),
+        );
+    }
+
+    /**
+     * Traite en ajax la reservation
+     *
+     * @Route("/resa-add/{id}", name="resa-add", requirements={"id"="\d+"})
+     * @Method("POST")
+     * @Template()
+     */
+    public function resaAddAction(Request $request, $id)
+    {
+      $em = $this->getDoctrine()->getManager();
+
+      $entity = $em->getRepository('ImieMainBundle:Service')->find($id);
+
+      if (!$entity) {
+          throw $this->createNotFoundException('Unable to find Service entity.');
+      }
+      $form = $this->createForm(new ServiceUpdateType(), $entity, array(
+          'action' => $this->generateUrl('resa-add', array('id'=> $id )),
+          'method' => 'POST',
+      ));
+$form->add('submit', 'submit', array('label' => 'Create'));
+      $form->handleRequest($request);
+      dump($form->getErrors());
+
+      if ($form->isValid()) {
+        $resa=new Reservation();
+        $resa->setService($entity);
+        $resa->setUser($this->getUser());
+        dump($resa);
+        $em->persist($resa);
+        $em->flush();
+
+
+      }
+      return array(
+          'entity' => $resa,
+      );
+
+    }
+
 
 }

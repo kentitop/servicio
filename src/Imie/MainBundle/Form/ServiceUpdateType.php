@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class ServiceType extends AbstractType
+class ServiceUpdateType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -15,12 +15,7 @@ class ServiceType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('titre')
-            ->add('description')
-            ->add('email')
-            ->add('preferences', 'datetime', array('widget' => 'single_text'))
-            ->add('categorie')
-            ->add('image', new ImageType())
+            ->add('etat', "hidden", array('data' => true))
         ;
     }
 
@@ -39,6 +34,7 @@ class ServiceType extends AbstractType
      */
     public function getName()
     {
-        return 'imie_mainbundle_service';
+        return 'imie_mainbundle_service_update';
     }
+
 }

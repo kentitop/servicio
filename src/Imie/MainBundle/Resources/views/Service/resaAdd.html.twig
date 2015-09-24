@@ -1,0 +1,15 @@
+{% extends "ImieMainBundle::layout.html.twig" %}
+
+{% block body %}
+
+<h1>Hello {{ entity.user.username }}, tu as bien réservé le service {{ entity.service.titre }} {{ entity.id }}</h1>
+
+<p>
+  {{ entity.service.description}}
+
+
+</p>
+<img src="{{ asset( 'uploads/images/' ~ entity.service.image.path ) }}" alt="{{entity.service.image.alt }}" />
+
+
+{% endblock %}

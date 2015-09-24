@@ -11,6 +11,7 @@
           Editer
       </a>
       {{ form(delete_form, { 'attr': {'class': 'deleteBtn'} }) }}
+      {{ form(update_form)}}
     </div>
   </div>
 
@@ -18,7 +19,7 @@
 
 
       <div class="media__show col-md-6">
-        <img src="{{ asset( 'uploads/images/' ~ entity.image.path ) }}" alt="{{ entity.image.alt }}" />
+        <img src="{{ asset( 'uploads/images/' ~ entity.image.path ) }}" alt="{{entity.image.alt }}" />
       </div>
 
       <div class="col-md-6">
@@ -38,7 +39,7 @@
               </tr>
               <tr>
                   <th>Preferences</th>
-                  <td>{{ entity.preferences }}</td>
+                  <td>{{ entity.preferences|date('Y-m-d H:i:s') }}</td>
               </tr>
               <tr>
                   <th>Createdat</th>

@@ -226,7 +226,7 @@ class Image
         return $this->path;
     }
 
-    
+
 
     /**
      * Get file.

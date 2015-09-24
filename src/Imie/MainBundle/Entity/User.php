@@ -33,4 +33,57 @@ class User extends BaseUser
     {
         return $this->id;
     }
+
+    /**
+    *
+    * @ORM\OneToMany(targetEntity="Reservation", mappedBy="user")
+    *
+    */
+    private $reservations;
+
+    /**
+     * Add reservations
+     *
+     * @param \Imie\MainBundle\Entity\Reservation $reservations
+     * @return User
+     */
+    public function addReservation(\Imie\MainBundle\Entity\Reservation $reservations)
+    {
+        $this->reservations[] = $reservations;
+
+        return $this;
+    }
+
+    /**
+     * Remove reservations
+     *
+     * @param \Imie\MainBundle\Entity\Reservation $reservations
+     */
+    public function removeReservation(\Imie\MainBundle\Entity\Reservation $reservations)
+    {
+        $this->reservations->removeElement($reservations);
+    }
+
+    /**
+     * Get reservations
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getReservations()
+    {
+        return $this->reservations;
+    }
+
+    /**
+     * Set reservations
+     *
+     * @param \Imie\MainBundle\Entity\Category $reservations
+     * @return User
+     */
+    public function setReservations(\Imie\MainBundle\Entity\Category $reservations = null)
+    {
+        $this->reservations = $reservations;
+
+        return $this;
+    }
 }

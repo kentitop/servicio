@@ -44,9 +44,9 @@ class Service
     private $email;
 
     /**
-     * @var string
+     * @var \DateTime
      *
-     * @ORM\Column(name="preferences", type="string", length=255)
+     * @ORM\Column(name="preferences", type="datetime")
      */
     private $preferences;
 
@@ -56,6 +56,13 @@ class Service
      * @ORM\Column(name="createdAt", type="datetime")
      */
     private $createdAt;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="etat", type="boolean")
+     */
+    private $etat;
 
     /**
     *
@@ -71,13 +78,24 @@ class Service
     private $image;
 
     /**
-     * Gets triggered only on insert
+    *
+    * @ORM\OneToOne(targetEntity="Imie\MainBundle\Entity\Reservation", cascade={"remove"})
+    */
+    private $reservation;
 
+    /**
+     * Générer automatiquement le createdAt
+     *
      * @ORM\PrePersist
      */
     public function onPrePersist()
     {
         $this->createdAt = new \DateTime("now");
+        $this->etat = false;
+    }
+
+    public function __toString() {
+      return $this->titre;
     }
 
 
@@ -163,7 +181,7 @@ class Service
     /**
      * Set preferences
      *
-     * @param string $preferences
+     * @param \DateTime $preferences
      * @return Service
      */
     public function setPreferences($preferences)
@@ -176,7 +194,7 @@ class Service
     /**
      * Get preferences
      *
-     * @return string
+     * @return \DateTime
      */
     public function getPreferences()
     {
@@ -250,5 +268,51 @@ class Service
     public function getImage()
     {
         return $this->image;
+    }
+
+    /**
+     * Set reservation
+     *
+     * @param \Imie\MainBundle\Entity\Reservation $reservation
+     * @return Service
+     */
+    public function setReservation(\Imie\MainBundle\Entity\Reservation $reservation = null)
+    {
+        $this->reservation = $reservation;
+
+        return $this;
+    }
+
+    /**
+     * Get reservation
+     *
+     * @return \Imie\MainBundle\Entity\Reservation
+     */
+    public function getReservation()
+    {
+        return $this->reservation;
+    }
+
+    /**
+     * Set etat
+     *
+     * @param boolean $etat
+     * @return Service
+     */
+    public function setEtat($etat)
+    {
+        $this->etat = $etat;
+
+        return $this;
+    }
+
+    /**
+     * Get etat
+     *
+     * @return boolean
+     */
+    public function getEtat()
+    {
+        return $this->etat;
     }
 }
