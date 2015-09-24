@@ -276,7 +276,6 @@ class ServiceController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $image->getImage()->upload();
-        dump($image);
         $em->persist($image);
         $em->flush();
 
