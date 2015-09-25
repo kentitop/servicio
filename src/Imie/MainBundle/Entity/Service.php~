@@ -77,11 +77,7 @@ class Service
     */
     private $image;
 
-    /**
-    *
-    * @ORM\OneToOne(targetEntity="Imie\MainBundle\Entity\Reservation", cascade={"remove"})
-    */
-    private $reservation;
+    
 
     /**
      * Générer automatiquement le createdAt

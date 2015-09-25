@@ -15,7 +15,7 @@ class ServiceUpdateType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('etat', "hidden", array('data' => true))
+            ->add('etat', 'hidden', array('data' => true))
         ;
     }
 

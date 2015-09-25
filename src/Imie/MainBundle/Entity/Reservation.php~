@@ -34,7 +34,7 @@ class Reservation
 
     /**
     *
-    * @ORM\OneToOne(targetEntity="Imie\MainBundle\Entity\Service", cascade={"remove"})
+    * @ORM\OneToOne(targetEntity="Imie\MainBundle\Entity\Service", cascade={"persist"})
     * @ORM\JoinColumn(onDelete="CASCADE")
     */
     private $service;

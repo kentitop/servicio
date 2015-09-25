@@ -287,7 +287,7 @@ class ServiceController extends Controller
             'method' => 'POST',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Create'));
+        $form->add('submit', 'submit', array('label' => 'Réserver', 'attr'=> array('class'=>'btn btn-success')));
         // if (isset($_POST) && $_POST['reservation'] == false) {
         //   $reservation =$_POST['reservation'];
         //   $idservice =$_POST['idservice'];
@@ -332,6 +332,11 @@ $form->add('submit', 'submit', array('label' => 'Create'));
         dump($resa);
         $em->persist($resa);
         $em->flush();
+
+        $returnArray = array("respondeCode" => 200, "welldone" => "Votre service à bien été réservé");
+        $return = json_encode($returnArray);
+
+        return new Response($return, 200, array('Content-type' => 'application/json'));
 
 
       }

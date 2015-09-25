@@ -14,10 +14,8 @@
           <ul class="nav navbar-nav">
             <li class="{{ 'service' == current ? 'active' : '' }}"><a href="{{ path ('service') }}">Home</a></li>
             <li class="{{ 'addService' == current ? 'active' : '' }}"><a href="{{ path ('service_new') }}">Ajouter un service</a></li>
-            {% if is_granted('ROLE_ADMIN') %}
-            {% endif %}
-            <li class="{{ 'categorie' == current ? 'active' : '' }}"><a href="{{ path ('category') }}">Les Catégories</a></li>
-            <li class="{{ 'addCategorie' == current ? 'active' : '' }}"><a href="{{ path ('category_new') }}">Ajouter une catégorie</a></li>
+
+
 
           </ul>
           <ul class="nav navbar-nav navbar-right">
@@ -31,6 +29,10 @@
               {% endif %}
               <ul class="dropdown-menu">
                 {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                {% if is_granted('ROLE_ADMIN') %}
+                <li class="{{ 'categorie' == current ? 'active' : '' }}"><a href="{{ path ('category') }}">Les Catégories</a></li>
+                <li class="{{ 'addCategorie' == current ? 'active' : '' }}"><a href="{{ path ('category_new') }}">Ajouter une catégorie</a></li>
+                {% endif %}
                   <li>
                     <a href="{{ path ('fos_user_security_logout') }}">Logout</a>
                   </li>

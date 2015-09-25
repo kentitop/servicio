@@ -1,4 +1,4 @@
-{% extends "ImieMainBundle::layout.html.twig" %}
+{% extends "ImieMainBundle::layout_base.html.twig" %}
 
 {% block body %}
   <div id="top-show"class="col-md-12">
@@ -7,13 +7,31 @@
       <a class="btn btn-default" href="{{ path('service') }}">
           Retour à la liste
       </a>
+      {% if is_granted('IS_AUTHENTICATED_FULLY') %}
       <a class="btn btn-info" href="{{ path('service_edit', { 'id': entity.id }) }}">
           Editer
       </a>
       {{ form(delete_form, { 'attr': {'class': 'deleteBtn'} }) }}
-      {{ form(update_form)}}
+
+        {% if entity.etat == false %}
+          {{ form_start(update_form, { 'attr': {'class': 'reserverBtn', 'id' : 'formReservation'} }) }}
+          {{ form_errors(update_form) }}
+          {{ form_widget(update_form.submit, { 'attr': {'class': 'btn btn-success reserverBtn'  } })}}
+          {{ form_end(update_form) }}
+        {% else %}
+
+          <button type="button" class="disabled btn btn-success" name="button">Reserver</button>
+
+
+        {% endif %}
+
+      {% endif %}
+
+
     </div>
   </div>
+
+
 
 
 
@@ -50,13 +68,48 @@
               </tbody>
           </table>
 
+          <div id="test" role="alert"></div>
+
         </div>
 
+{% endblock %}
+
+{% block javascripts %}
+<script src="{{ asset('bundles/imiemain/js/jquery.datetimepicker.js') }}"></script>
+<script type="text/javascript">
+$(function() {
+
+  var formBooked = $('#formReservation');
+  //var formEtat = $('#imie_mainbundle_service_update_etat').attr('value');
+  var formUrl = formBooked.attr('action');
+  console.log(formUrl);
+
+  // $etat = {{ entity.etat }};
+  // if ( $etat == 1) {
+  //   $('#imie_mainbundle_service_update_submit').addClass('disabled');
+  // }
+
+
+  formBooked.on('submit', function(){
+    $.ajax({
+      url: formUrl,
+      type: "POST",
+      data: formBooked.serialize(),
+      success: function(data){
+        console.log(data);
+        $('#imie_mainbundle_service_update_submit').addClass('disabled');
+        $('#test').html(data.welldone).addClass('alert alert-success');
+
+      }
+    });
+    return false;
+  });
 
 
 
 
 
 
-
+});
+</script>
 {% endblock %}
