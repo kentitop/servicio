@@ -1,0 +1,44 @@
+services:
+    sonata.admin.post:
+        class: Imie\MainBundle\Admin\PostAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Content", label: "Post" }
+        arguments:
+            - ~
+            - Imie\MainBundle\Entity\Post
+            - ~
+        calls:
+            - [ setTranslationDomain, [ImieMainBundle]]
+
+    sonata.admin.category:
+        class: Imie\MainBundle\Admin\CategoryAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Content", label: "Category" }
+        arguments:
+            - ~
+            - Imie\MainBundle\Entity\Category
+            - ~
+        calls:
+            - [ setTranslationDomain, [ImieMainBundle]]
+
+    sonata.admin.services:
+        class: Imie\MainBundle\Admin\ServiceAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Content", label: "Service" }
+        arguments:
+            - ~
+            - Imie\MainBundle\Entity\Service
+            - ~
+        calls:
+            - [ setTranslationDomain, [ImieMainBundle]]
+
+    sonata.admin.image:
+        class: Imie\MainBundle\Admin\ImageAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Content", label: "Image" }
+        arguments:
+            - ~
+            - Imie\MainBundle\Entity\Image
+            - ~
+        calls:
+            - [ setTranslationDomain, [ImieMainBundle]]

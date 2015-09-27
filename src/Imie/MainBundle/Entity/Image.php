@@ -48,6 +48,12 @@ class Image
      */
     private $alt;
 
+
+    public function __toString() {
+      return $this->name;
+    }
+
+
     private $temp;
 
     public function getAbsolutePath()
@@ -92,7 +98,7 @@ class Image
             $this->temp = $this->path;
             $this->path = null;
         } else {
-            $this->path = 'initial';
+            $this->path = 'img-0';
         }
     }
 
@@ -144,6 +150,7 @@ class Image
             unlink($file);
         }
     }
+
 
 
     /**
